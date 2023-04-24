@@ -1,0 +1,5 @@
+
+.history/
+build/
+verbose.egg-info/
+verbose/__pycache__/

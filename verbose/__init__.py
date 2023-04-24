@@ -1,31 +1,57 @@
+class before:
+    pass
+
+
+class inbetween:
+    pass
+
+
+class after:
+    pass
+
+
+VERSION = '1.0.1'
+AUTHOR = 'GrenManSK'
+
+
 class get_logger:
     def __init__(self, strict: bool = True):
         self.level = 0
         self.start = True
         self.strict = strict
 
-    def next(self, text: str = '', end: str = '\n', by: int = 1, toprint: bool = True):
+    def next(self, text: str = '', end: str = '\n', by: int = 1, toprint: bool = True, where: after | before | inbetween = after):
         self.level += by
         start = False
         if self.start:
             start = True
             if toprint:
-                print(
-                    f"{'|'+'____'*(self.level-by)+'____________________________________________________'}")
+                if where is before:
+                    print(f"|{text}", end=end)
+                elif where is inbetween:
+                    print(
+                        f"{'|'+'____'*(self.level-by)+'_______________________________________' + text}")
+                    return f"{'|'+'____'*(self.level-by)+'_______________________________________' + text}"
+                else:
+                    print(
+                        f"{'|'+'____'*(self.level-by)+'____________________________________________________'}")
             self.start = False
         else:
             if toprint:
-                print(
-                    f"{'____'*(self.level-by)+'|'+'____________________________________________________'}")
+                if where is before:
+                    print(f"{(self.level - by)*'    '}|{text}", end=end)
+                else:
+                    print(
+                        f"{'____'*(self.level-by)+'|'+'____________________________________________________'}")
         message = f"{self.level*'    '}|{text}" + end
-        if toprint:
+        if toprint and where is after:
             print(f"{self.level*'    '}|{text}", end=end)
         if start:
             return f"{'|'+'____'*(self.level-by)+'____________________________________________________'}\n" + message
         else:
             return message
 
-    def prev(self, text: str = '', end: str = '\n', by: int = 1, toprint: bool = True):
+    def prev(self, text: str = '', end: str = '\n', by: int = 1, toprint: bool = True, where: after | before | inbetween = after):
         if self.level == 0:
             if self.strict:
                 raise RuntimeError('Can not go under the current level')
@@ -33,17 +59,24 @@ class get_logger:
                 return 'Can not go under the current level'
         self.level -= by
         if toprint:
-            print(
-                f"{'____'*(self.level+by)+'|'+'____________________________________________________'}")
+            if where is before:
+                print(f"{(self.level + by)*'    '}|{text}", end=end)
+            elif where is inbetween:
+                print(
+                    f"{'____'*(self.level+by)+'|'+'_______________________________________' + text}")
+                return f"{'____'*(self.level+by)+'|'+'_______________________________________' + text}"
+            else:
+                print(
+                    f"{'____'*(self.level+by)+'|'+'____________________________________________________'}")
         if self.level == 0:
             self.start = True
             message = f"|{self.level*'    '}{text}"
-            if toprint:
+            if toprint and where is after:
                 print(f"|{self.level*'    '}{text}", end=end)
             return message + end
         else:
             message = f"{self.level*'    '}|{text}"
-            if toprint:
+            if toprint and where is after:
                 print(f"{self.level*'    '}|{text}", end=end)
             return message + end
 

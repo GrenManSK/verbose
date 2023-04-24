@@ -1,11 +1,11 @@
 from setuptools import setup
 from setuptools import find_packages
+from verbose import VERSION, AUTHOR
 
 setup(
     name ='verbose' ,
-    version='1.0.0',
+    version=VERSION,
     description='verbose',
-    author='GrenManSK',
-    install_requires=[],
+    author=AUTHOR,
     packages=find_packages(exclude=('tests*', 'testing*'))
 )
