@@ -15,12 +15,15 @@ AUTHOR = 'GrenManSK'
 
 
 class get_logger:
-    def __init__(self, strict: bool = True):
+    def __init__(self, strict: bool = True, quiet = False):
         self.level = 0
         self.start = True
         self.strict = strict
+        self.quiet = quiet
 
     def next(self, text: str = '', end: str = '\n', by: int = 1, toprint: bool = True, where: after | before | inbetween = after):
+        if self.quiet:
+            toprint = False
         self.level += by
         start = False
         if self.start:
@@ -52,6 +55,8 @@ class get_logger:
             return message
 
     def prev(self, text: str = '', end: str = '\n', by: int = 1, toprint: bool = True, where: after | before | inbetween = after):
+        if self.quiet:
+            toprint = False
         if self.level == 0:
             if self.strict:
                 raise RuntimeError('Can not go under the current level')
@@ -81,6 +86,8 @@ class get_logger:
             return message + end
 
     def stay(self, text: str = '', end: str = '\n', toprint: bool = True):
+        if self.quiet:
+            toprint = False
         if toprint:
             print(f"{self.level*'    '}|{text}", end=end)
         return f"{self.level*'    '}|{text}" + end
