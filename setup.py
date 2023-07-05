@@ -3,9 +3,9 @@ from setuptools import find_packages
 from verbose import VERSION, AUTHOR
 
 setup(
-    name ='verbose' ,
+    name="verbose",
     version=VERSION,
-    description='verbose',
+    description="verbose",
     author=AUTHOR,
-    packages=find_packages(exclude=('tests*', 'testing*'))
+    packages=find_packages(exclude=("tests*", "testing*")),
 )
