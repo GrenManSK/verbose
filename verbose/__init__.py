@@ -38,35 +38,34 @@ class get_logger:
             if toprint:
                 if where is before:
                     print(f"|{text}")
-                    print(
-                        "|"
-                        + "____" * (self.level - by)
-                        + "_______________________________________"
-                    )
+                    print("|_______________________________________")
                 elif where is inbetween:
                     print(
-                        f"{'|'+'____'*(self.level-by)+'_______________________________________' + text}"
+                        f"|{'____'*(self.level-by)}_______________________________________{text}"
                     )
-                    return f"{'|'+'____'*(self.level-by)+'_______________________________________' + text}"
+                    return f"|{'____'*(self.level-by)}_______________________________________{text}"
                 else:
                     print(
-                        f"{'|'+'____'*(self.level-by)+'____________________________________________________'}"
+                        f"|{'____'*(self.level-by)}____________________________________________________"
                     )
             self.start = False
         else:
             if toprint:
                 if where is before:
-                    print(f"{(self.level - by)*'    '}|{text}", end=end)
+                    print(f"{(self.level - by)*'    '}|{text}")
+                    print(
+                        f"{'____'*(self.level - by)}|_______________________________________"
+                    )
                 else:
                     print(
-                        f"{'____'*(self.level-by)+'|'+'____________________________________________________'}"
+                        f"{'____'*(self.level-by)}|____________________________________________________"
                     )
         message = f"{self.level*'    '}|{text}" + end
         if toprint and where is after:
             print(f"{self.level*'    '}|{text}", end=end)
         if start:
             return (
-                f"{'|'+'____'*(self.level-by)+'____________________________________________________'}\n"
+                f"|{'____'*(self.level-by)}____________________________________________________\n"
                 + message
             )
         else:
@@ -92,16 +91,16 @@ class get_logger:
             if where is before:
                 print(f"{(self.level + by)*'    '}|{text}")
                 print(
-                    f"|{(self.level + by)*'____'}_______________________________________"
+                    f"{(self.level + by)*'____'}|_______________________________________"
                 )
             elif where is inbetween:
                 print(
-                    f"{'____'*(self.level+by)+'|'+'_______________________________________' + text}"
+                    f"{'____'*(self.level+by)}|_______________________________________{text}"
                 )
-                return f"{'____'*(self.level+by)+'|'+'_______________________________________' + text}"
+                return f"{'____'*(self.level+by)}|_______________________________________{text}"
             else:
                 print(
-                    f"{'____'*(self.level+by)+'|'+'____________________________________________________'}"
+                    f"{'____'*(self.level+by)}|____________________________________________________"
                 )
         if self.level == 0:
             self.start = True
