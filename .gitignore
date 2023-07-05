@@ -3,3 +3,4 @@
 build/
 verbose.egg-info/
 verbose/__pycache__/
+test.py
