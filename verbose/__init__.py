@@ -58,6 +58,10 @@ class get_logger:
                     print(
                         f"{'____'*(self.level - by)}|_______________________________________"
                     )
+                elif where is inbetween:
+                    print(
+                        f"{'____'*(self.level-by)}|_______________________________________{text}"
+                    )
                 else:
                     print(
                         f"{'____'*(self.level-by)}|____________________________________________________"
