@@ -10,7 +10,7 @@ class after:
     pass
 
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 AUTHOR = "GrenManSK"
 
 
@@ -37,18 +37,20 @@ class get_logger:
             start = True
             if toprint:
                 if where is before:
-                    print(f"|{text}")
-                    print("|_______________________________________")
+                    print(f"|{text}\n|_______________________________________")
+                    self.start = False
                 elif where is inbetween:
                     print(
                         f"|{'____'*(self.level-by)}_______________________________________{text}"
                     )
+                    self.start = False
                     return f"|{'____'*(self.level-by)}_______________________________________{text}"
                 else:
                     print(
                         f"|{'____'*(self.level-by)}____________________________________________________"
                     )
-            self.start = False
+                    self.start = False
+                    return f"|{'____'*(self.level-by)}____________________________________________________"
         else:
             if toprint:
                 if where is before:
