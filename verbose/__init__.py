@@ -51,31 +51,28 @@ class get_logger:
                     )
                     self.start = False
                     return f"|{'____'*(self.level-by)}____________________________________________________"
-        else:
-            if toprint:
-                if where is before:
-                    print(f"{(self.level - by)*'    '}|{text}")
-                    print(
-                        f"{'____'*(self.level - by)}|_______________________________________"
-                    )
-                elif where is inbetween:
-                    print(
-                        f"{'____'*(self.level-by)}|_______________________________________{text}"
-                    )
-                else:
-                    print(
-                        f"{'____'*(self.level-by)}|____________________________________________________"
-                    )
-        message = f"{self.level*'    '}|{text}" + end
+        elif toprint:
+            if where is before:
+                print(f"{(self.level - by)*'    '}|{text}")
+                print(
+                    f"{'____'*(self.level - by)}|_______________________________________"
+                )
+            elif where is inbetween:
+                print(
+                    f"{'____'*(self.level-by)}|_______________________________________{text}"
+                )
+            else:
+                print(
+                    f"{'____'*(self.level-by)}|____________________________________________________"
+                )
+        message = f"{self.level * '    '}|{text}{end}"
         if toprint and where is after:
             print(f"{self.level*'    '}|{text}", end=end)
-        if start:
-            return (
-                f"|{'____'*(self.level-by)}____________________________________________________\n"
-                + message
-            )
-        else:
-            return message
+        return (
+            f"|{'____' * (self.level - by)}____________________________________________________\n{message}"
+            if start
+            else message
+        )
 
     def prev(
         self,
@@ -113,16 +110,16 @@ class get_logger:
             message = f"|{self.level*'    '}{text}"
             if toprint and where is after:
                 print(f"|{self.level*'    '}{text}", end=end)
-            return message + end
         else:
             message = f"{self.level*'    '}|{text}"
             if toprint and where is after:
                 print(f"{self.level*'    '}|{text}", end=end)
-            return message + end
+
+        return message + end
 
     def stay(self, text: str = "", end: str = "\n", toprint: bool = True):
         if self.quiet:
             toprint = False
         if toprint:
             print(f"{self.level*'    '}|{text}", end=end)
-        return f"{self.level*'    '}|{text}" + end
+        return f"{self.level * '    '}|{text}{end}"
